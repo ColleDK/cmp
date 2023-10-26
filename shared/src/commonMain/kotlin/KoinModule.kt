@@ -42,6 +42,7 @@ private val coreModule = module {
 
     single<MemeRepository> {
         MemeRepositoryImpl(
+            get(),
             get()
         )
     }
