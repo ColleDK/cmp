@@ -1,0 +1,18 @@
+CREATE TABLE Meme (
+id INTEGER NOT NULL PRIMARY KEY,
+name TEXT NOT NULL UNIQUE,
+url TEXT NOT NULL,
+width INTEGER NOT NULL,
+height INTEGER NOT NULL,
+boxCount INTEGER NOT NULL
+);
+
+selectAll:
+SELECT * FROM Meme;
+
+insertMeme:
+INSERT OR IGNORE INTO Meme(name, url, width, height, boxCount)
+VALUES (?, ?, ?, ?, ?);
+
+deleteAll:
+DELETE FROM Meme;

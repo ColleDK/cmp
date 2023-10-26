@@ -1,4 +1,4 @@
-package models
+package domain.models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

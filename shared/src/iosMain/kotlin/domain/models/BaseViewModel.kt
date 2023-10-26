@@ -1,4 +1,4 @@
-package models
+package domain.models
 
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
