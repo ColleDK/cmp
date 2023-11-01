@@ -12,6 +12,7 @@ android-gradle-plugin = "8.1.1"
 ktlint-gradle = "11.6.0"
 
 compose = "1.5.2"
+composeMaterial3 = "1.1.2"
 composeCompiler = "1.5.3"
 
 android-desugaring = "2.0.3"
@@ -36,6 +37,8 @@ multiplatformSettings = "1.0.0"
 turbine = "1.0.0"
 sqlDelight = "2.0.0"
 
+kamel = "0.8.2"
+
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -49,7 +52,7 @@ compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref 
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-material = { module = "androidx.compose.material3:material3", version.ref = "composeMaterial3" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -75,6 +78,8 @@ multiplatformSettings-common = { module = "com.russhwolf:multiplatform-settings"
 multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatformSettings" }
 
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+
+kamel-core = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 
 sqlDelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 sqlDelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
