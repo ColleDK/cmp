@@ -1,7 +1,9 @@
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -81,15 +83,21 @@ private fun PokemonListItem(
         }
 
         AnimatedVisibility(isOpen) {
-            KamelImage(
-                resource = asyncPainterResource(data = pokemon.imageFrontUrl ?: ""),
-                contentDescription = "Image of ${pokemon.name}",
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier.fillMaxWidth(),
-                onLoading = {
-                    LinearProgressIndicator(progress = it)
-                }
-            )
+            Column {
+                Text(
+                    text = "Type ${pokemon.type}",
+                    modifier = Modifier.fillMaxWidth()
+                )
+                KamelImage(
+                    resource = asyncPainterResource(data = pokemon.imageFrontUrl ?: ""),
+                    contentDescription = "Image of ${pokemon.name}",
+                    contentScale = ContentScale.FillWidth,
+                    modifier = Modifier.fillMaxWidth(),
+                    onLoading = {
+                        LinearProgressIndicator(progress = it)
+                    }
+                )
+            }
         }
     }
 }

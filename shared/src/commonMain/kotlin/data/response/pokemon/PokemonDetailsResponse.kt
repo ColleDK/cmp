@@ -4,5 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PokemonDetailsResponse(
-    val sprites: PokemonSpriteResponse? = null
+    val sprites: PokemonSpriteResponse,
+    val types: List<PokemonTypeResponse>
 )

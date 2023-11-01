@@ -5,6 +5,7 @@ import app.cash.paging.PagingState
 import data.response.pokemon.PokemonDetailsResponse
 import data.response.pokemon.PokemonListResponse
 import domain.Pokemon
+import domain.Type
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
@@ -68,7 +69,7 @@ class PokemonPagingSource(
 
                 val result = pokemon.results.map {
                     val response = client.get(it.url)
-                    val images = when(response.status.isSuccess()) {
+                    val details = when(response.status.isSuccess()) {
                         true -> {
                             response.body<PokemonDetailsResponse>()
                         }
@@ -79,8 +80,9 @@ class PokemonPagingSource(
 
                     Pokemon(
                         name = it.name,
-                        imageFrontUrl = images?.sprites?.front_default,
-                        shinyImageFrontUrl = images?.sprites?.front_shiny
+                        imageFrontUrl = details?.sprites?.front_default,
+                        shinyImageFrontUrl = details?.sprites?.front_shiny,
+                        type = Type.values().find { type -> type.typeName == details?.types?.get(0)?.type?.name }
                     )
                 }
 
