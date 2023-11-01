@@ -2,8 +2,9 @@ package data.ktor
 
 import app.cash.paging.PagingSource
 import app.cash.paging.PagingState
+import data.response.pokemon.PokemonDetailsResponse
 import data.response.pokemon.PokemonListResponse
-import data.response.pokemon.PokemonResponse
+import domain.Pokemon
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
@@ -16,7 +17,7 @@ import kotlinx.serialization.json.Json
 
 class PokemonPagingSource(
     engine: HttpClientEngine
-): PagingSource<Int, PokemonResponse>() {
+): PagingSource<Int, Pokemon>() {
     companion object {
         const val FIRST_PAGE_INDEX = 0
         const val PAGE_SIZE = 20
@@ -41,14 +42,14 @@ class PokemonPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, PokemonResponse>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Pokemon>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PokemonResponse> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Pokemon> {
         val page = params.key ?: FIRST_PAGE_INDEX
         val httpResponse = client.get("https://pokeapi.co/api/v2/pokemon/") {
             url {
@@ -65,8 +66,26 @@ class PokemonPagingSource(
                     pageKey = page
                 )
 
+                val result = pokemon.results.map {
+                    val response = client.get(it.url)
+                    val images = when(response.status.isSuccess()) {
+                        true -> {
+                            response.body<PokemonDetailsResponse>()
+                        }
+                        else -> {
+                            null
+                        }
+                    }
+
+                    Pokemon(
+                        name = it.name,
+                        imageFrontUrl = images?.sprites?.front_default,
+                        shinyImageFrontUrl = images?.sprites?.front_shiny
+                    )
+                }
+
                 LoadResult.Page(
-                    data = pokemon.results,
+                    data = result,
                     nextKey = nextKey,
                     prevKey = null
                 )
