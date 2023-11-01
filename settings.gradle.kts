@@ -1,4 +1,4 @@
-rootProject.name = "MyApplication"
+rootProject.name = "CMPSample"
 
 include(":androidApp")
 include(":shared")
