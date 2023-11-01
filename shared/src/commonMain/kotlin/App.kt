@@ -19,7 +19,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,18 +28,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import app.cash.paging.compose.collectAsLazyPagingItems
 import com.colledk.cmp.db.Meme
-import domain.models.MemeViewModel
+import domain.models.PokemonViewModel
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 
 @Composable
 fun App(
-    memeViewModel: MemeViewModel
+    viewModel: PokemonViewModel
 ) {
     MaterialTheme {
-        val memes by memeViewModel.memes.collectAsState()
-        MemeList(memes = memes)
+        val pokemonList = viewModel.pokemon.collectAsLazyPagingItems()
+        PokemonList(pokemonList = pokemonList)
     }
 }
 
