@@ -11,12 +11,17 @@ import io.ktor.client.request.get
 import io.ktor.http.encodedPath
 import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 
 class MemeApiImpl(engine: HttpClientEngine) : MemeApi {
     private val client = HttpClient(engine) {
         expectSuccess = true
         install(ContentNegotiation) {
-            json()
+            json(
+                Json {
+                    ignoreUnknownKeys = true
+                }
+            )
         }
         install(HttpTimeout) {
             val timeout = 30000L

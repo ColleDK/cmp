@@ -1,6 +1,5 @@
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import domain.models.MemeViewModel
 
-@Composable fun MainView() = App()
+@Composable fun MainView(viewModel: MemeViewModel) = App(memeViewModel = viewModel)
 

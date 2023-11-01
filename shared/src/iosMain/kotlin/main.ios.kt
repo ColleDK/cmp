@@ -1,5 +1,5 @@
 import androidx.compose.ui.window.ComposeUIViewController
-import kotlinx.coroutines.CoroutineScope
+import domain.models.MemeViewModel
 
-fun MainViewController() = ComposeUIViewController { App() }
+fun MainViewController(viewModel: MemeViewModel) = ComposeUIViewController { App(memeViewModel = viewModel) }
 
