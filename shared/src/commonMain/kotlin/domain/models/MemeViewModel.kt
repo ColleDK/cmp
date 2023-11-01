@@ -13,10 +13,14 @@ class MemeViewModel(
     private val _memes = MutableStateFlow<List<Meme>>(emptyList())
     val memes: StateFlow<List<Meme>> = _memes
 
-    fun loadMemes() {
+    init {
+        loadMemes()
+        observeMemes()
+    }
+
+    private fun loadMemes() {
         scope.launch {
             memeRepository.updateMemes()
-            observeMemes()
         }
     }
 
