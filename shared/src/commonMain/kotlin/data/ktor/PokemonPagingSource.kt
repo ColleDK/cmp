@@ -4,8 +4,8 @@ import app.cash.paging.PagingSource
 import app.cash.paging.PagingState
 import data.response.pokemon.PokemonDetailsResponse
 import data.response.pokemon.PokemonListResponse
+import data.response.pokemon.mapToDomain
 import domain.Pokemon
-import domain.Type
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
@@ -82,7 +82,7 @@ class PokemonPagingSource(
                         name = it.name,
                         imageFrontUrl = details?.sprites?.front_default,
                         shinyImageFrontUrl = details?.sprites?.front_shiny,
-                        type = Type.values().find { type -> type.typeName == details?.types?.get(0)?.type?.name }
+                        type = details?.types?.get(0)?.mapToDomain()
                     )
                 }
 
