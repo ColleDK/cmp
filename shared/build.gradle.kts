@@ -77,6 +77,8 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation(libs.kamel.core)
+                implementation(libs.androidx.paging)
+                implementation(libs.androidx.paging.compose)
             }
         }
         val commonTest by getting {
@@ -104,6 +106,7 @@ kotlin {
                 implementation(libs.sqlDelight.native)
                 implementation(libs.ktor.client.ios)
                 api(libs.touchlab.kermit.simple)
+                implementation(libs.paging.runtime.uikit)
             }
         }
     }

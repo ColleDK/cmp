@@ -69,4 +69,7 @@ dependencies {
     coreLibraryDesugaring(libs.android.desugaring)
     implementation(libs.koin.android)
     testImplementation(libs.junit)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.paging.compose)
+    implementation(libs.androidx.paging.rxjava3)
 }

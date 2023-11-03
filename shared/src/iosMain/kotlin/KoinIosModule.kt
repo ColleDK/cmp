@@ -2,6 +2,7 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.colledk.cmp.db.ColleDB
 import domain.models.MemeViewModel
+import domain.models.PokemonViewModel
 import io.ktor.client.engine.darwin.Darwin
 import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
@@ -19,8 +20,10 @@ actual val platformModule = module {
     single<SqlDriver> { NativeSqliteDriver(schema = ColleDB.Schema, name = "ColleDB") }
     single { Darwin.create() }
     single { MemeViewModel(get()) }
+    single { PokemonViewModel(get()) }
 }
 
 object KotlinDependencies: KoinComponent {
     fun getMemeViewModel() = getKoin().get<MemeViewModel>()
+    fun getPokemonViewModel() = getKoin().get<PokemonViewModel>()
 }
