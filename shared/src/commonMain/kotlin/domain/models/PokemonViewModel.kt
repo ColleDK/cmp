@@ -4,10 +4,10 @@ import androidx.paging.PagingData
 import app.cash.paging.Pager
 import app.cash.paging.PagingConfig
 import app.cash.paging.cachedIn
-import data.ktor.PokemonPagingSource
-import data.ktor.PokemonPagingSource.Companion.INITIAL_LOAD_SIZE
-import data.ktor.PokemonPagingSource.Companion.PAGE_SIZE
-import data.ktor.PokemonPagingSource.Companion.PREFETCH_DISTANCE
+import data.PokemonPagingSource
+import data.PokemonPagingSource.Companion.INITIAL_LOAD_SIZE
+import data.PokemonPagingSource.Companion.PAGE_SIZE
+import data.PokemonPagingSource.Companion.PREFETCH_DISTANCE
 import domain.Pokemon
 import kotlinx.coroutines.flow.Flow
 

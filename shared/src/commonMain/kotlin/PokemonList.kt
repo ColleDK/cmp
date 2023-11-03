@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import app.cash.paging.compose.LazyPagingItems
@@ -71,49 +72,85 @@ private fun PokemonListItem(
             containerColor = pokemon.type?.color ?: Color.Unspecified
         )
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(paddingValues = PaddingValues(all = 8.dp))
-        ) {
-            Text(
-                text = "$index: ${pokemon.name.capitalize(Locale.current)}",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.weight(1f),
-            )
-
-            Crossfade(targetState = isOpen) { isOpen ->
-                if (isOpen) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowDropDown,
-                        contentDescription = null
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowDropDown,
-                        contentDescription = null,
-                        modifier = Modifier.rotate(degrees = -90f)
-                    )
-                }
-            }
-        }
+        ListItemTitle(
+            pokemon = pokemon,
+            index = index,
+            isOpen = isOpen
+        )
 
         AnimatedVisibility(isOpen) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(paddingValues = PaddingValues(all = 8.dp))
+                modifier = Modifier.fillMaxWidth()
+                    .padding(paddingValues = PaddingValues(all = 8.dp))
             ) {
                 Text(
-                    text = "Type ${pokemon.type}",
-                    modifier = Modifier.fillMaxWidth()
-                )
-                KamelImage(
-                    resource = asyncPainterResource(data = pokemon.imageFrontUrl ?: ""),
-                    contentDescription = "Image of ${pokemon.name}",
-                    contentScale = ContentScale.FillWidth,
+                    text = "Type - ${pokemon.type}",
                     modifier = Modifier.fillMaxWidth(),
-                    onLoading = {
-                        LinearProgressIndicator(progress = it)
-                    }
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Images(pokemon = pokemon)
+            }
+        }
+    }
+}
+
+@Composable
+private fun ListItemTitle(
+    pokemon: Pokemon,
+    index: Int,
+    isOpen: Boolean
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(paddingValues = PaddingValues(all = 8.dp))
+    ) {
+        Text(
+            text = "$index: ${pokemon.name.capitalize(Locale.current)}",
+            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            modifier = Modifier.weight(1f),
+        )
+
+        Crossfade(targetState = isOpen) { isOpen ->
+            if (isOpen) {
+                Icon(
+                    imageVector = Icons.Filled.ArrowDropDown,
+                    contentDescription = null
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Filled.ArrowDropDown,
+                    contentDescription = null,
+                    modifier = Modifier.rotate(degrees = -90f)
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun Images(
+    pokemon: Pokemon
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        KamelImage(
+            resource = asyncPainterResource(data = pokemon.imageFrontUrl ?: ""),
+            contentDescription = "Image of ${pokemon.name}",
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier.weight(1f),
+            onLoading = {
+                LinearProgressIndicator(progress = it)
+            }
+        )
+        KamelImage(
+            resource = asyncPainterResource(data = pokemon.shinyImageFrontUrl ?: ""),
+            contentDescription = "Image of ${pokemon.name}",
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier.weight(1f),
+            onLoading = {
+                LinearProgressIndicator(progress = it)
+            }
+        )
     }
 }

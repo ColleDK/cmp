@@ -1,9 +1,11 @@
 
 import data.DatabaseHelper
 import data.MemeRepositoryImpl
+import data.PokemonPagingSource
 import data.ktor.MemeApi
 import data.ktor.MemeApiImpl
-import data.ktor.PokemonPagingSource
+import data.ktor.pokemon.PokemonApi
+import data.ktor.pokemon.PokemonApiImpl
 import domain.repository.MemeRepository
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.KoinApplication
@@ -47,6 +49,10 @@ private val coreModule = module {
             get(),
             get()
         )
+    }
+
+    single<PokemonApi> {
+        PokemonApiImpl(get())
     }
 
     single {
