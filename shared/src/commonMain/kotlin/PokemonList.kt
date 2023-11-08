@@ -48,7 +48,7 @@ internal fun PokemonList(
             pokemon?.let {
                 PokemonListItem(
                     pokemon = it,
-                    index = index
+                    index = index + 1
                 )
             }
         }
